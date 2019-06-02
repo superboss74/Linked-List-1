@@ -1,14 +1,6 @@
-# This Class implements a simple single node linked list
-class LinkedListNode
-  attr_accessor :value, :next_node
-
-  def initialize(value, next_node = nil)
-    @value = value
-    @next_node = next_node
-  end
-end
-# This Class will help me implement a Stack
-class Stack
+require_relative 'linked_list'
+# This class will help us deploy and manipulate a class
+class Stack < LinkedListNode
   attr_reader :data
 
   def initialize
@@ -16,8 +8,8 @@ class Stack
   end
 
   def push(value)
-    @data = LinkedListNode.new(value, @data)
-    # puts data.value
+    new_node = LinkedListNode.new(value, @data)
+    @data = new_node
   end
 
   def pop
@@ -31,26 +23,24 @@ class Stack
   end
 end
 
-# This method should print the linked list
-
-def print_values(list_node)
-  if list_node
-    print "#{list_node.value} --> "
-    print_values(list_node.next_node)
-  else
-    print "nil\n"
-  end
-end
-
 # This method reverse the linked list
-
 def reversed_linked_list(list)
   stack = Stack.new
   while list
     stack.push(list.value)
     list = list.next_node
   end
-  LinkedListNode.new(stack.pop, stack.data)
+  stack.data
+end
+
+# This method should print the linked list
+def print_values(list_node)
+  if !list_node
+    print "nil\n"
+  else
+    print "#{list_node.value} --> "
+    print_values(list_node.next_node)
+  end
 end
 
 node1 = LinkedListNode.new(37)
