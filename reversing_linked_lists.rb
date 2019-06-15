@@ -6,7 +6,7 @@ class Stack < LinkedListNode
   def initialize
     @data = nil
   end
-
+  # defining a custom push method for this class
   def push(value)
     new_node = LinkedListNode.new(value, @data)
     @data = new_node
@@ -22,13 +22,13 @@ class Stack < LinkedListNode
     reversed_list.data
   end
 
-  # This method should print the linked list
-  def print_values(list_nodes)
-    if !list_nodes
+  # This recursive method should print a given inked list
+  def print_values(list)
+    if !list
       print "nil\n"
     else
-      print "#{list_nodes.value} -> "
-      print_values(list_nodes.next_node)
+      print "#{list.value} -> "
+      print_values(list.next_node)
     end
   end
 end
