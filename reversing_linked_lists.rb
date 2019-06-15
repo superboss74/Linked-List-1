@@ -1,7 +1,7 @@
 require_relative 'linked_list'
 # This class will help us deploy and manipulate a class
 class Stack < LinkedListNode
-  attr_reader :data
+  attr_accessor :data, :reversed_list
 
   def initialize
     @data = nil
@@ -12,42 +12,33 @@ class Stack < LinkedListNode
     @data = new_node
   end
 
-  def pop
-    if @data.nil?
-      nil
-    else
-      returning_value = @data.value
-      @data = @data.next_node
-      returning_value
+  # This method reverse the linked list
+  def reversed_linked_list(list)
+    @reversed_list = Stack.new
+    while list
+      reversed_list.push(list.value)
+      list = list.next_node
     end
+    reversed_list.data
   end
-end
 
-# This method reverse the linked list
-def reversed_linked_list(list)
-  stack = Stack.new
-  while list
-    stack.push(list.value)
-    list = list.next_node
-  end
-  stack.data
-end
-
-# This method should print the linked list
-def print_values(list_node)
-  if !list_node
-    print "nil\n"
-  else
-    print "#{list_node.value} --> "
-    print_values(list_node.next_node)
+  # This method should print the linked list
+  def print_values(list_nodes)
+    if !list_nodes
+      print "nil\n"
+    else
+      print "#{list_nodes.value} -> "
+      print_values(list_nodes.next_node)
+    end
   end
 end
 
 node1 = LinkedListNode.new(37)
 node2 = LinkedListNode.new(99, node1)
 node3 = LinkedListNode.new(12, node2)
+node4 = LinkedListNode.new(23, node3)
 
-print_values(node3)
+linked_list = Stack.new
+linked_list.print_values(node4)
 puts '-------'
-revlist = reversed_linked_list(node3)
-print_values(revlist)
+linked_list.print_values(linked_list.reversed_linked_list(node4))
